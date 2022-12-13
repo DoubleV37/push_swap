@@ -6,7 +6,7 @@
 #    By: vviovi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/03 16:15:09 by vviovi            #+#    #+#              #
-#    Updated: 2022/12/13 07:51:44 by vviovi           ###   ########.fr        #
+#    Updated: 2022/12/13 14:11:43 by vviovi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,9 @@ SRC = 	main.c \
 		utils.c \
 		operations.c \
 		data_utils.c \
-		sort_fct.c
+		sort_fct.c \
+		utils_sort.c \
+		instructions_ps.c
 
 OBJ = ${SRC:.c=.o}
 

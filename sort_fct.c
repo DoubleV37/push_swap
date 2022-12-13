@@ -6,7 +6,7 @@
 /*   By: vviovi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 07:51:09 by vviovi            #+#    #+#             */
-/*   Updated: 2022/12/13 13:42:39 by vviovi           ###   ########.fr       */
+/*   Updated: 2022/12/13 16:29:48 by vviovi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,60 +14,49 @@
 
 void	butterfly_sort(t_data *a, t_data *b, char ***instrtab)
 {
-	/*int	pivot;
-	int	div;
-
-	div = a->end / 10 + 15;
-	div = a->end / div;
-	if (div == 0)
-		div = 3;
-	pivot = a->end /div;
-*/
-	if (a && b && instrtab)
-		return ;
-	return ;
-}
-
-static int	get_index_max_intab(t_data *a)
-{
+	int	pivot;
 	int	i;
-	int	index_max;
+	int	mid;
+	int max;
 
-	i = 0;
-	index_max = 0;
-	while (i < a->end)
+	pivot = get_pivot(a);
+	mid = pivot / 2;
+	while (a->end != 0)
 	{
-		if (a->data[index_max] < a->data[i])
-			index_max = i;
-		i++;
+		i = 0;
+		while (i < a->end)
+		{
+			if (a->data[i] < pivot)
+			{
+				push(a, b, 'b', instrtab);
+				if (b->data[0] > mid)
+					rotate(b, 'b', instrtab);
+			}
+			i++;
+		}
+		pivot += pivot;
 	}
-	return (index_max);
-}
-
-void	norm_tab(t_data *a)
-{
-	int	nb;
-	int	max;
-	int	i;
-	int	*tabnorm;
-
-	nb = a->end;
-	i = 0;
-	tabnorm = malloc(sizeof(int) * a->size);
-	while (i < a->size)
+	while (b->end != 0)
 	{
-		tabnorm[i] = 1;
-		i++;
+		max = get_index_max_intab(b);
+		if (max > (b->end / 2))
+		{
+			while (max != 0)
+			{
+				reverse_rotate(b, 'b', instrtab);
+				max = get_index_max_intab(b);
+			}
+		}
+		else if (max <= (b->end / 2))
+		{
+			while (max != 0)
+			{
+				rotate(b, 'b', instrtab);
+				max = get_index_max_intab(b);
+			}
+		}
+		push(a, b, 'a', instrtab);
 	}
-	while (nb > 1)
-	{
-		max = get_index_max_intab(a);
-		tabnorm[max] = nb;
-		a->data[max] = -2147483648;
-		nb--;
-	}
-	free(a->data);
-	a->data = tabnorm;
 }
 
 void	sort_size3(t_data *a, char ***instrtab)
@@ -75,14 +64,16 @@ void	sort_size3(t_data *a, char ***instrtab)
 	norm_tab(a);
 	while (!is_sorted(a))
 	{
-		ft_printf("%i\n", a->data[0]);
-		ft_printf("%i\n", a->data[1]);
-		ft_printf("%i\n", a->data[2]);
-		if ((a->data[0] == 1 && a->data[1] == 3 && a->data[2] == 2) || (a->data[0] == 2 && a->data[1] == 3 && a->data[2] == 1))
+		if ((a->data[0] == 1 && a->data[1] == 3
+				&& a->data[2] == 2) || (a->data[0] == 2
+				&& a->data[1] == 3 && a->data[2] == 1))
 			reverse_rotate(a, 'a', instrtab);
-		else if ((a->data[0] == 3 && a->data[1] == 2 && a->data[2] == 1) || (a->data[0] == 2 && a->data[1] == 1 && a->data[2] == 3))
+		else if ((a->data[0] == 3 && a->data[1] == 2
+				&& a->data[2] == 1) || (a->data[0] == 2
+				&& a->data[1] == 1 && a->data[2] == 3))
 			swap(a, 'a', instrtab);
-		else if (a->data[0] == 3 && a->data[1] == 1 && a->data[2] == 2)
+		else if (a->data[0] == 3 && a->data[1] == 1
+			&& a->data[2] == 2)
 			rotate(a, 'a', instrtab);
 	}
 }

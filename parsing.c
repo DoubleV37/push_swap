@@ -6,7 +6,7 @@
 /*   By: vviovi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:18:22 by vviovi            #+#    #+#             */
-/*   Updated: 2022/12/11 19:31:57 by vviovi           ###   ########.fr       */
+/*   Updated: 2022/12/13 17:07:41 by vviovi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	build_a(int argc, char **argv, t_data *a, t_data *b)
 	i = 0;
 	while (numbers[i])
 	{
-		a->data[i] = ft_atoi_pushswap(numbers[i], &numbers, a);
+		a->data[i] = ft_atoi_pushswap(numbers[i], &numbers, a, b);
 		i++;
 	}
 	free_tab(&numbers);

@@ -6,7 +6,7 @@
 /*   By: vviovi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 09:27:24 by vviovi            #+#    #+#             */
-/*   Updated: 2022/12/13 13:45:47 by vviovi           ###   ########.fr       */
+/*   Updated: 2022/12/13 16:53:17 by vviovi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,26 @@ int	valid_input(int nb_in, char **input)
 {
 	int	i;
 	int	j;
+	int	digit;
 
 	i = 1;
 	while (i < nb_in)
 	{
 		j = 0;
+		digit = 0;
+		if (!input[i][j])
+			return (0);
 		while (input[i][j])
 		{
 			if (!ft_isdigit(input[i][j]) && input[i][j] != '-'
 				&& input[i][j] != '+' && input[i][j] != ' ')
 				return (0);
+			if(ft_isdigit(input[i][j]))
+				digit = 1;
 			j++;
 		}
+		if (digit == 0)
+			return (0);
 		i++;
 	}
 	return (1);
@@ -40,7 +48,9 @@ int	valid_sign(char *str)
 	i = 0;
 	while (str[i + 1])
 	{
-		if (str[i] == '-' && !ft_isdigit(str[i + 1]))
+		if ((str[i] == '-' && !ft_isdigit(str[i + 1]))
+			|| (str[i + 1] == '-' && ft_isdigit(str[i]))
+			|| (str[i + 1] == '+' && ft_isdigit(str[i])))
 			return (0);
 		i++;
 	}

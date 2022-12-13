@@ -6,13 +6,13 @@
 /*   By: vviovi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 09:08:30 by vviovi            #+#    #+#             */
-/*   Updated: 2022/12/13 13:58:52 by vviovi           ###   ########.fr       */
+/*   Updated: 2022/12/13 17:16:16 by vviovi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	push_swap(t_data *a, t_data *b,char ***instr)
+void	push_swap(t_data *a, t_data *b, char ***instr)
 {
 	if (a->size == 2)
 		swap(a, 'a', instr);
@@ -43,6 +43,7 @@ void	parsing(int argc, char **argv, t_data *a, t_data *b)
 		if (is_double_intab(a))
 		{
 			free(a->data);
+			free(b->data);
 			write(2, "Error\n", 6);
 			exit(0);
 		}
@@ -66,8 +67,7 @@ int	main(int argc, char **argv)
 			print_instr(&instr);
 		}
 		free(a.data);
-		if (b.data)
-			free(b.data);
+		free(b.data);
 	}
 	return (0);
 }
