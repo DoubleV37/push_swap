@@ -6,7 +6,7 @@
 /*   By: vviovi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:18:22 by vviovi            #+#    #+#             */
-/*   Updated: 2022/12/06 16:03:38 by vviovi           ###   ########.fr       */
+/*   Updated: 2022/12/11 19:31:57 by vviovi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ char	*build_str_nb(int argc, char **argv)
 	str = ft_strdup("\0");
 	while (i < argc)
 	{
+		if (argv[i] == NULL)
+		{
+			free(str);
+			return (NULL);
+		}
 		str = ft_strjoin_free_first_param(str, " ");
 		str = ft_strjoin_free_first_param(str, argv[i]);
 		i++;
@@ -46,7 +51,7 @@ void	free_tab(char ***str)
 	free(*str);
 }
 
-int	build_a(int argc, char **argv, t_data *a)
+int	build_a(int argc, char **argv, t_data *a, t_data *b)
 {
 	int		i;
 	char	*str;
@@ -61,21 +66,16 @@ int	build_a(int argc, char **argv, t_data *a)
 	i = 0;
 	while (numbers[i])
 		i++;
-	a->data = malloc(sizeof(int) * i);
+	a->data = ft_calloc(sizeof(int), i);
 	a->size = i;
+	a->end = i;
+	b->data = ft_calloc(sizeof(int), a->size);
+	b->end = 0;
+	b->size = a->size;
 	i = 0;
 	while (numbers[i])
 	{
-		a->data[i] = ft_atoi(numbers[i]);
-		if ((a->data[i] == 0
-			&& numbers[i][ft_strlen(numbers[i]) - 1] != '0')
-			|| (a->data[i] == -1
-			&& ft_strncmp(numbers[i], "-1", ft_strlen(numbers[i]))))
-		{
-			ft_printf("%i",a->data[i]);
-			free_tab(&numbers);
-			return (0);
-		}
+		a->data[i] = ft_atoi_pushswap(numbers[i], &numbers, a);
 		i++;
 	}
 	free_tab(&numbers);

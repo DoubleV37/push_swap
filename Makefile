@@ -6,7 +6,7 @@
 #    By: vviovi <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/03 16:15:09 by vviovi            #+#    #+#              #
-#    Updated: 2022/12/06 11:43:37 by vviovi           ###   ########.fr        #
+#    Updated: 2022/12/13 07:51:44 by vviovi           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,10 @@ LIBFTFLAGS = -L libft -lft
 SRC = 	main.c \
 		parsing.c \
 		verif_parsing.c \
-		utils.c
+		utils.c \
+		operations.c \
+		data_utils.c \
+		sort_fct.c
 
 OBJ = ${SRC:.c=.o}
 
@@ -52,10 +55,4 @@ re : fclean all
 
 all : $(NAME)
 
-norm : re
-	@echo "norminette : nb OK / nb total"
-	@norminette | grep "OK" | wc -l
-	@echo -n "/"
-	@norminette | wc -l
-
-.PHONY: clean fclean re all norm
+.PHONY: clean fclean re all

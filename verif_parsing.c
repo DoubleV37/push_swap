@@ -6,7 +6,7 @@
 /*   By: vviovi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 09:27:24 by vviovi            #+#    #+#             */
-/*   Updated: 2022/12/06 11:24:34 by vviovi           ###   ########.fr       */
+/*   Updated: 2022/12/13 13:45:47 by vviovi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	is_sorted(t_data *tab)
 	int	i;
 
 	i = 1;
-	while (tab->size > i)
+	while (tab->end > i)
 	{
 		if (tab->data[i - 1] > tab->data[i])
 			return (0);
