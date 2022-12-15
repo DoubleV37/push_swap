@@ -6,7 +6,7 @@
 /*   By: vviovi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 14:06:04 by vviovi            #+#    #+#             */
-/*   Updated: 2022/12/13 16:01:31 by vviovi           ###   ########.fr       */
+/*   Updated: 2022/12/14 18:32:38 by vviovi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,10 @@
 
 int	get_pivot(t_data *a)
 {
-	int	pivot;
-	int	div;
-
-	div = a->end / 10 + 15;
-	div = a->end / div;
-	if (div == 0)
-		div = 3;
-	pivot = a->end /div;
-	return (pivot);
+	if (a->end <= 200)
+		return ((a->end / 4));
+	else
+		return ((a->end / 10));
 }
 
 int	get_index_max_intab(t_data *a)
@@ -39,6 +34,22 @@ int	get_index_max_intab(t_data *a)
 		i++;
 	}
 	return (index_max);
+}
+
+int	get_index_min_intab(t_data *a)
+{
+	int	i;
+	int	index_min;
+
+	i = 0;
+	index_min = 0;
+	while (i < a->end)
+	{
+		if (a->data[index_min] > a->data[i])
+			index_min = i;
+		i++;
+	}
+	return (index_min);
 }
 
 int	get_index_max_prev_intab(t_data *a)

@@ -6,40 +6,61 @@
 /*   By: vviovi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 07:51:09 by vviovi            #+#    #+#             */
-/*   Updated: 2022/12/13 16:29:48 by vviovi           ###   ########.fr       */
+/*   Updated: 2022/12/15 08:57:09 by vviovi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+int	is_nb_inrange(t_data *a, int min, int max)
+{
+	int	i;
+
+	i = 0;
+	while (a->end > i)
+	{
+		if (a->data[i] >= min && a->data[i] < max)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	butterfly_sort(t_data *a, t_data *b, char ***instrtab)
 {
 	int	pivot;
-	int	i;
-	int	mid;
+	int	pivot_init;
+	int min;
 	int max;
 
-	pivot = get_pivot(a);
-	mid = pivot / 2;
+	norm_tab(a);
+	min = 0;
+	pivot_init = get_pivot(a);
+	pivot = pivot_init;
 	while (a->end != 0)
 	{
-		i = 0;
-		while (i < a->end)
+		//ft_printf("==============================================\n");
+		while (is_nb_inrange(a, min, pivot))
 		{
-			if (a->data[i] < pivot)
+			if (a->data[0] >= min && a->data[0] < pivot)
 			{
+				//ft_printf("%i\n", a->data[0]);
 				push(a, b, 'b', instrtab);
-				if (b->data[0] > mid)
+				if (b->data[0] < ((pivot - min) / 2) + min)
 					rotate(b, 'b', instrtab);
 			}
-			i++;
+			else
+				rotate(a, 'a', instrtab);
 		}
-		pivot += pivot;
+		min = pivot;
+		pivot += pivot_init;
 	}
 	while (b->end != 0)
 	{
 		max = get_index_max_intab(b);
-		if (max > (b->end / 2))
+		if (max == 0)
+			push(a, b, 'a', instrtab);
+		else if (max > (b->end / 2))
 		{
 			while (max != 0)
 			{
@@ -55,7 +76,6 @@ void	butterfly_sort(t_data *a, t_data *b, char ***instrtab)
 				max = get_index_max_intab(b);
 			}
 		}
-		push(a, b, 'a', instrtab);
 	}
 }
 
