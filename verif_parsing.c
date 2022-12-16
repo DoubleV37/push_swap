@@ -6,7 +6,7 @@
 /*   By: vviovi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 09:27:24 by vviovi            #+#    #+#             */
-/*   Updated: 2022/12/13 16:53:17 by vviovi           ###   ########.fr       */
+/*   Updated: 2022/12/16 16:24:08 by vviovi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	valid_input(int nb_in, char **input)
 			if (!ft_isdigit(input[i][j]) && input[i][j] != '-'
 				&& input[i][j] != '+' && input[i][j] != ' ')
 				return (0);
-			if(ft_isdigit(input[i][j]))
+			if (ft_isdigit(input[i][j]))
 				digit = 1;
 			j++;
 		}

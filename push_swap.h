@@ -6,7 +6,7 @@
 /*   By: vviovi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 09:24:46 by vviovi            #+#    #+#             */
-/*   Updated: 2022/12/15 10:09:36 by vviovi           ###   ########.fr       */
+/*   Updated: 2022/12/16 17:20:22 by vviovi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int		is_sorted(t_data *tab);
 int		build_a(int argc, char **argv, t_data *a, t_data *b);
 char	*build_str_nb(int argc, char **argv);
 void	free_tab(char ***str);
+void	init_stacks(t_data *a, t_data *b, int i);
 
 void	swap(t_data *a, char nametab, char ***instr);
 void	push(t_data *a, t_data *b, char nametab, char ***instr);
@@ -41,7 +42,8 @@ int		print_dbl_action(char ***instrtab, int i);
 void	print_instr(char ***instrtab);
 
 void	ft_atoi_error(char ***numbers, t_data *a, t_data *b);
-int		ft_atoi_pushswap(const char *nptr, char ***numbers, t_data *a, t_data *b);
+int		ft_atoi_pushswap(const char *nptr, char ***numbers,
+			t_data *a, t_data *b);
 
 void	parsing(int argc, char **argv, t_data *a, t_data *b);
 void	push_swap(t_data *a, t_data *b, char ***instr);
@@ -61,5 +63,11 @@ int		get_pivot(t_data *a);
 int		get_index_max_intab(t_data *a);
 int		get_index_min_intab(t_data *a);
 int		is_intab(t_data *a, int val);
+
+int		is_nb_inrange(t_data *a, int min, int max);
+int		push_a_back_butterfly(t_data *a, t_data *b, char ***instrtab);
+void	push_a_butterfly(t_data *a, t_data *b, char ***instrtab, int max);
+void	push_b_butterfly(t_data *a, t_data *b, char ***instrtab);
+void	butterfly_sort(t_data *a, t_data *b, char ***instrtab);
 
 #endif

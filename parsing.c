@@ -6,7 +6,7 @@
 /*   By: vviovi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 17:18:22 by vviovi            #+#    #+#             */
-/*   Updated: 2022/12/13 17:07:41 by vviovi           ###   ########.fr       */
+/*   Updated: 2022/12/16 16:33:38 by vviovi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,16 @@ void	free_tab(char ***str)
 	free(*str);
 }
 
+void	init_stacks(t_data *a, t_data *b, int i)
+{
+	a->data = ft_calloc(sizeof(int), i);
+	a->size = i;
+	a->end = i;
+	b->data = ft_calloc(sizeof(int), a->size);
+	b->end = 0;
+	b->size = a->size;
+}
+
 int	build_a(int argc, char **argv, t_data *a, t_data *b)
 {
 	int		i;
@@ -66,12 +76,7 @@ int	build_a(int argc, char **argv, t_data *a, t_data *b)
 	i = 0;
 	while (numbers[i])
 		i++;
-	a->data = ft_calloc(sizeof(int), i);
-	a->size = i;
-	a->end = i;
-	b->data = ft_calloc(sizeof(int), a->size);
-	b->end = 0;
-	b->size = a->size;
+	init_stacks(a, b, i);
 	i = 0;
 	while (numbers[i])
 	{
