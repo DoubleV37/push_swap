@@ -6,7 +6,7 @@
 /*   By: vviovi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/13 07:51:09 by vviovi            #+#    #+#             */
-/*   Updated: 2022/12/15 08:57:09 by vviovi           ###   ########.fr       */
+/*   Updated: 2022/12/16 15:32:59 by vviovi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,23 @@ int	is_nb_inrange(t_data *a, int min, int max)
 	return (0);
 }
 
-void	butterfly_sort(t_data *a, t_data *b, char ***instrtab)
+int	push_a_back_butterfly(t_data *a, t_data *b, char ***instrtab)
+{
+	if (a->data[a->end - 1] == a->size
+		|| a->data[a->end - 1] < b->data[0])
+	{
+		push(a, b, 'a', instrtab);
+		rotate(a, 'a', instrtab);
+		return (1);
+	}
+	return (0);
+}
+
+void	push_b_butterfly(t_data *a, t_data *b, char ***instrtab)
 {
 	int	pivot;
 	int	pivot_init;
 	int min;
-	int max;
 
 	norm_tab(a);
 	min = 0;
@@ -39,12 +50,10 @@ void	butterfly_sort(t_data *a, t_data *b, char ***instrtab)
 	pivot = pivot_init;
 	while (a->end != 0)
 	{
-		//ft_printf("==============================================\n");
 		while (is_nb_inrange(a, min, pivot))
 		{
 			if (a->data[0] >= min && a->data[0] < pivot)
 			{
-				//ft_printf("%i\n", a->data[0]);
 				push(a, b, 'b', instrtab);
 				if (b->data[0] < ((pivot - min) / 2) + min)
 					rotate(b, 'b', instrtab);
@@ -55,27 +64,36 @@ void	butterfly_sort(t_data *a, t_data *b, char ***instrtab)
 		min = pivot;
 		pivot += pivot_init;
 	}
-	while (b->end != 0)
+}
+
+void	butterfly_sort(t_data *a, t_data *b, char ***instrtab)
+{
+	int max;
+	int val;
+
+	push_b_butterfly(a, b, instrtab);
+	val = b->size;
+	while (val > 0)
 	{
-		max = get_index_max_intab(b);
-		if (max == 0)
+		if (is_intab(b, val))
+		{
+			max = get_index_max_intab(b);
+			while (max != 0)
+			{
+				if (!push_a_back_butterfly(a, b, instrtab))
+				{
+					if (max > (b->end / 2))
+						reverse_rotate(b, 'b', instrtab);
+					else
+						rotate(b, 'b', instrtab);
+				}
+				max = get_index_max_intab(b);
+			}
 			push(a, b, 'a', instrtab);
-		else if (max > (b->end / 2))
-		{
-			while (max != 0)
-			{
-				reverse_rotate(b, 'b', instrtab);
-				max = get_index_max_intab(b);
-			}
 		}
-		else if (max <= (b->end / 2))
-		{
-			while (max != 0)
-			{
-				rotate(b, 'b', instrtab);
-				max = get_index_max_intab(b);
-			}
-		}
+		else
+			reverse_rotate(a, 'a', instrtab);
+		val--;
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: vviovi <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/04 09:24:46 by vviovi            #+#    #+#             */
-/*   Updated: 2022/12/14 11:18:10 by vviovi           ###   ########.fr       */
+/*   Updated: 2022/12/15 10:09:36 by vviovi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ void	norm_tab(t_data *a);
 int		get_pivot(t_data *a);
 int		get_index_max_intab(t_data *a);
 int		get_index_min_intab(t_data *a);
-int		get_index_max_prev_intab(t_data *a);
+int		is_intab(t_data *a, int val);
 
 #endif
